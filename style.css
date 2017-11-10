@@ -32,3 +32,11 @@ button {
 	margin-right: 30px;
 	margin-top: 8px;
 }
+
+span {
+	cursor: pointer;
+}
+
+.active {
+	background-color: yellow;
+}

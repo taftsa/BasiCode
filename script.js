@@ -7,6 +7,9 @@ $(document).on('click', '#codeList', function(){
 		$('#codeBox').append('<button class="code" value="' + codeList[i] + '">' + codeList[i] + '</button>');
 	};
 	
+	$('#codeBox').append('<button id="undo">Undo Selected</button>');
+	$('#codeBox').append('<button id="export">Export .csv</button>');
+	
 	$(this).remove();
 	$('#codes').remove();
 });
@@ -31,13 +34,10 @@ $(document).on('click', '.code', function(){
 	}else{
 		var tr = window.getSelection().getRangeAt(0);
 		var span = document.createElement("span");
+		span.className = this.value;
 		span.style.cssText = "color:#ff0000";
 		tr.surroundContents(span);
 	};
-	
-	//Add the code and text to the variable
-	var selObj = JSON.stringify(window.getSelection().toString());
-    codeExport.push([$(this).val(), selObj]);
 	
 	//Clear the selection
 	if (window.getSelection) {
@@ -52,6 +52,12 @@ $(document).on('click', '.code', function(){
 });
 
 $(document).on('click', '#export', function(){
+	$('.active').removeClass('active');
+	
+	$('span').each(function(){
+		codeExport.push([this.className, this.innerHTML]);
+	});	
+	
 	const rows = codeExport;
 	let csvContent = "data:text/csv;charset=utf-8,";
 	rows.forEach(function(rowArray){
@@ -66,4 +72,17 @@ $(document).on('click', '#export', function(){
 	document.body.appendChild(link);
 
 	link.click();
+});
+
+$(document).on('click', 'span', function(){
+	if ($(this).hasClass('active')) {
+		$('.active').removeClass('active');
+	} else {
+		$('.active').removeClass('active');
+		$(this).addClass('active');
+	};	
+});
+
+$(document).on('click', '#undo', function(){
+	$('.active').contents().unwrap();
 });
