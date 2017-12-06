@@ -16,6 +16,13 @@
 	overflow-y: auto;
 }
 
+#title {
+	font-family: arial;
+	text-align: right;
+	float: right;
+	margin-right: 10px;
+}
+
 #text {
 	width: 800px;
 	height: 600px;
