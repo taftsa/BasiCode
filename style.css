@@ -5,13 +5,19 @@
 }
 
 #textbox {
-	width: 800px;
+	position: fixed;
+	top: 5px;
+	left: 340px;
+	width: 750px;
 	height: 600px;
 	overflow-y: auto;
 }
 
 #codeBox {
-	width: 200px;
+	position: fixed;
+	top: 5px;
+	left: 5px;
+	width: 330px;
 	background-color: lightgrey;
 	overflow-y: auto;
 }
@@ -29,8 +35,15 @@
 }
 
 #codes {
-	width: 200px;
+	width: 330px;
 	height: 400px;
+}
+
+.code {
+	display: inline-block;
+	width: 60px;
+	margin: 2px;
+	font-size: 0.6em;
 }
 
 button {
