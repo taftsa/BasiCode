@@ -2,6 +2,9 @@ var codeExport = [];
 var textLoaded = false;
 var codesLoaded = false;
 
+function randColor(){
+	return "#" + Math.floor(Math.random()*16777215).toString(16);
+};
 
 //Save to Browser
 $(document).on('click', '#browserSave', function() {
@@ -49,7 +52,7 @@ $(document).on('click', '#codeList', function(){
 		$('#codeBox').empty();
 
 		for (var i = 0; i < codeList.length; i++) {
-			$('#codeBox').append('<button class="code ' + codeList[i].toUpperCase() + '" value="' + codeList[i].toUpperCase() + '">' + codeList[i].toUpperCase() + '</button>');
+			$('#codeBox').append('<button class="code ' + codeList[i] + '" value="' + codeList[i] + '" style="border-color: ' + randColor() + '">' + codeList[i] + '</button>');
 		};
 		
 		codesLoaded = true;
@@ -82,7 +85,7 @@ $(document).on('click', '#addCode', function(){
 	var newCode = prompt('Add a code');
 	
 	if (newCode !== null && newCode !== '') {
-		$('#codeBox').append('<button class="code ' + newCode + '" value="' + newCode + '">' + newCode + '</button>');
+		$('#codeBox').append('<button class="code ' + newCode + '" value="' + newCode + '" style="border-color: ' + randColor() + '">' + newCode + '</button>');
 	};
 });
 
@@ -145,7 +148,7 @@ $(document).on('click', '.code', function(){
 		var tr = window.getSelection().getRangeAt(0);
 		var span = document.createElement("span");
 		span.className = this.value;
-		span.style.cssText = "color:#ff0000";
+		span.style.cssText = "color: " + $(this).css('border-color');
 		tr.surroundContents(span);
 	};
 	
@@ -163,7 +166,7 @@ $(document).on('click', '.code', function(){
 
 //Show Codes on Hover
 $(document).on('mouseenter', 'span', function(){
-	$('.code.' + this.className).css('background-color', 'red');
+	$('.code.' + this.className).css('background-color', $(this).css('border-color'));
 });
 
 $(document).on('mouseleave', 'span', function(){
@@ -191,15 +194,16 @@ $(document).on('click', 'span', function(){
 
 //Uncode Selected Text
 $(document).on('click', '#undo', function(){
-	$('.active').contents().unwrap();	
+	$('.active').contents().unwrap();
 });
 
 //Create and Download .csv File
 $(document).on('click', '#export', function(){
 	$('.active').removeClass('active');
 	
+	//Add each code to codeExport, replacing "<br><br>" with a space
 	$('span').each(function(){
-		codeExport.push([this.className, '"' + this.innerHTML + '"']);
+		codeExport.push([this.className, '"' + this.innerHTML.replace('<br><br>', ' ') + '"']);
 	});	
 	
 	const rows = codeExport;

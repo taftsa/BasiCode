@@ -1,4 +1,15 @@
 Manage and view everything in-app
 -Keep track of which document
 
-Select text after clearing code
+Don't allow multiple codes
+
+Problems with codes with spaces
+Combine Codes
+Something fundamental is broken (maybe the spacing thing - not just that though because "change code" didn't work right)
+Remove text
+Handle in-text quotes
+Weird divisions in the output
+
+Code hover creates useless white background
+
+Change value when changing code also
